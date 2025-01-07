@@ -1,11 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func main() {
-	revenue := getUserInput("Revenue: ")
-	expenses := getUserInput("Expenses: ")
-	taxRate := getUserInput("Tax Rate: ")
+	revenue, _ := getUserInput("Revenue: ")
+	expenses, _ := getUserInput("Expenses: ")
+	taxRate, _ := getUserInput("Tax Rate: ")
 
 	ebt, profit, ratio := calculateFinancials(revenue, expenses, taxRate)
 
@@ -14,9 +17,14 @@ func main() {
 	fmt.Printf("Ratio: %.3f\n", ratio)
 }
 
-func getUserInput(text string) (result float64) {
+func getUserInput(text string) (result float64, err error) {
 	fmt.Print(text)
 	fmt.Scan(&result)
+
+	if result <= 0 {
+		return 0, errors.New("value must be a positive number")
+	}
+
 	return
 }
 
