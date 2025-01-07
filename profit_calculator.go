@@ -6,9 +6,23 @@ import (
 )
 
 func main() {
-	revenue, _ := getUserInput("Revenue: ")
-	expenses, _ := getUserInput("Expenses: ")
-	taxRate, _ := getUserInput("Tax Rate: ")
+	revenue, err1 := getUserInput("Revenue: ")
+	if err1 != nil {
+		fmt.Println(err1)
+		return
+	}
+
+	expenses, err2 := getUserInput("Expenses: ")
+	if err2 != nil {
+		fmt.Println(err1)
+		return
+	}
+
+	taxRate, err3 := getUserInput("Tax Rate: ")
+	if err3 != nil {
+		fmt.Println(err3)
+		return
+	}
 
 	ebt, profit, ratio := calculateFinancials(revenue, expenses, taxRate)
 
